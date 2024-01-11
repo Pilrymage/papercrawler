@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Dialog?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.Controller">
+    <MenuBar styleClass="menu-bar" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+            <menus>
+                <Menu text="文件">
+                    <items>
+                        <MenuItem text="导入" onAction="#importCSV"/>
+                        <MenuItem text="导出" onAction="#exportCSV"/>
+                        <MenuItem text="退出" onAction="#quitCrawler"/>
+                    </items>
+                </Menu>
+                <Menu text="帮助">
+                    <items>
+                        <MenuItem text="关于" onAction="#showAboutDialog"/>
+                    </items>
+                </Menu>
+            </menus>
+    </MenuBar>
+
+    <VBox layoutX="10.0" layoutY="30.0" spacing="10.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <HBox spacing="10.0">
+            <TextField fx:id="maxRecordsTextField" promptText="最大允许记录数"/>
+            <TextField fx:id="keywordTextField" promptText="搜索……" />
+            <ChoiceBox fx:id="siteChoiceBox" value="论文网">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="论文网"/>
+                        <String fx:value="知网"/>
+                        <String fx:value="NSTL"/>
+                        <String fx:value="百度学术"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+            <Button text="开始爬取" onAction="#crawlPaperAction"/>
+            <TextField fx:id="searchField" promptText="关键词搜索" prefWidth="200.0"/>
+            <Button text="搜索" onAction="#searchTableView" />
+        </HBox>
+
+
+        <TableView fx:id="tableView" VBox.vgrow="ALWAYS" AnchorPane.bottomAnchor="0">
+            <columns>
+                <TableColumn text="ID" prefWidth="50">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="标题" prefWidth="170">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="title"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="作者" prefWidth="170">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="author"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="来源" prefWidth="170">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="source"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="发表时间" prefWidth="130">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="time"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="邮箱" prefWidth="130">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="email"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10.0">
+            <TextField fx:id="idTextField" promptText="ID" prefWidth="50"/>
+            <TextField fx:id="titleTextField" promptText="标题" />
+            <TextField fx:id="authorTextField" promptText="作者" />
+<!--        </HBox>-->
+<!--        <HBox spacing="10.0">-->
+            <TextField fx:id="sourceTextField" promptText="来源" prefWidth="120"/>
+            <TextField fx:id="timeTextField" promptText="发表时间" prefWidth="120"/>
+            <TextField fx:id="emailTextField" promptText="邮箱" />
+        </HBox>
+        <HBox spacing="10.0">
+            <Button text="刷新" onAction="#refreshTableView"/>
+            <Button text="添加" onAction="#addTableView"/>
+            <Button text="删除" onAction="#deleteTableView"/>
+            <Button text="更新" onAction="#updateTableView"/>
+        </HBox>
+    </VBox>
+
+
+</AnchorPane>
